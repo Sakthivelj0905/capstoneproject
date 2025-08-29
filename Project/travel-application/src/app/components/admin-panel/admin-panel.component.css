@@ -1,0 +1,219 @@
+/* ---------------- Container ---------------- */
+.container {
+  padding: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f7fa;
+  min-height: 100vh;
+}
+
+/* ---------------- Card Toggle ---------------- */
+.card-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  flex: 1;
+  padding: 25px 0;
+  background-color: #fff;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: 0.5s all;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  color: #555;
+}
+
+.card.active {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  color: #fff;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(255,255,255,0.1);
+  transition: 0.5s;
+}
+
+.card:hover::before {
+  width: 100%;
+}
+
+/* ---------------- Section Styling ---------------- */
+.section {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.section h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* ---------------- Input Styling ---------------- */
+input {
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 300px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.3s all;
+}
+
+input:focus {
+  border-color: #ff7e5f;
+  box-shadow: 0 0 10px rgba(255,126,95,0.3);
+}
+
+/* ---------------- Buttons ---------------- */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  color: #fff;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(255,126,95,0.3);
+}
+
+/* ---------------- Table Styling ---------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+table, th, td {
+  border: none;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+thead {
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  color: #fff;
+}
+
+tbody tr {
+  background: #f9f9f9;
+  transition: 0.3s all;
+}
+
+tbody tr:nth-child(even) {
+  background: #f1f1f1;
+}
+
+tbody tr:hover {
+  transform: scale(1.02);
+  background: #ffe8e0;
+}
+
+/* ---------------- Status Styling ---------------- */
+.status-blocked {
+  color: red;
+  font-weight: bold;
+}
+
+.status-confirmed {
+  color: green;
+  font-weight: bold;
+}
+
+/* ---------------- Animations ---------------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------- Modal Styling ---------------- */
+.admin-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.admin-form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.admin-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* ---------------- Modal Buttons ---------------- */
+/* Modal Buttons Container */
+.admin-form .form-buttons {
+  display: flex;             /* horizontal layout */
+  justify-content: flex-end; /* align buttons right */
+  margin-top: 15px;          /* space from inputs above */
+}
+
+/* Add Button */
+.admin-form .btn-add {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-flex;      /* ensure horizontal layout */
+  margin-right: 15px;        /* space between Add and Cancel */
+  width: auto;               /* prevent stretching */
+}
+
+/* Cancel Button */
+.admin-form .btn-cancel {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-flex;      /* ensure horizontal layout */
+  width: auto;               /* prevent stretching */
+}
+.btn-delete{
+  margin-left: 20px;
+}
+.btn-toggle{
+  margin-left: 20px;
+}

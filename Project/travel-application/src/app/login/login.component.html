@@ -1,0 +1,41 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2 class="logo">TravelMate</h2>
+    <h1>Welcome back</h1>
+    <p>Don’t have an account? <a routerLink="/register" class="register">Create an account</a></p>
+
+    <form (ngSubmit)="onLogin()">
+      <div class="input-group">
+        <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required />
+      </div>
+      <div class="input-group">
+        <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required />
+      </div>
+
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+
+    <p class="forgot">
+      Forgot your login details? <a routerLink="/reset-password">Reset password</a>
+    </p>
+
+    <div class="footer-links">
+      <a routerLink="/privacy-policy">Privacy Policy</a>
+      <a routerLink="/terms-of-service">Terms of Service</a>
+    </div>
+  </div>
+</div>
+<app-popup
+  [visible]="popupOpen"
+  title="Login Status"
+  (closed)="closePopup()"
+>
+  <p>
+    <i 
+      class="fa-solid" 
+      [ngClass]="popupMessage.includes('successful') ? 'fa-check' : 'fa-xmark'">
+    </i> 
+    {{ popupMessage }}
+  </p>
+</app-popup>
+

@@ -1,0 +1,185 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="container mt-4">
+  <h3 class="mb-3 text-center">Booking List</h3>
+
+  <!-- Search -->
+  <input
+    type="text"
+    class="form-control mb-3"
+    placeholder="Search..."
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="onSearchChange()"
+  />
+
+  <!-- Add Booking Button -->
+  <div class="mb-3 text-end">
+    <button class="btn btn-success" (click)="addBookingClick()">
+      <i class="fa-solid fa-plus"></i> Add Booking
+    </button>
+  </div>
+
+  <!-- Add/Edit Form -->
+  <div class="card shadow p-3 mb-4" *ngIf="showForm">
+    <h5>{{ isEditing ? 'Edit Booking' : 'Add Booking' }}</h5>
+
+    <!-- Organizer Name -->
+    <input
+      type="text"
+      class="form-control mb-2"
+      placeholder="Organizer Name"
+      [(ngModel)]="currentBooking.organizer"
+      name="organizer"
+    />
+
+    <!-- Package ID -->
+    <select
+    id="package"
+    [(ngModel)]="currentBooking.package_id"
+    class="form-control mb-2"
+    name="package_id"
+    (change)="onPackageChange()"
+    required
+  >
+  <option value="" disabled>Select Package</option>
+  <option *ngFor="let p of packages" [ngValue]="p.id">{{ p.name }}</option>
+  </select>
+    <!-- Travelers -->
+    <div *ngFor="let traveler of currentBooking.travelers; let i = index" class="mb-2 p-2 border rounded">
+      <h6>Traveler {{ i + 1 }}</h6>
+      <input
+        type="text"
+        class="form-control mb-1"
+        placeholder="Name"
+        [(ngModel)]="traveler.name"
+        name="travelerName{{i}}"
+      />
+      <input
+        type="email"
+        class="form-control mb-1"
+        placeholder="Email"
+        [(ngModel)]="traveler.email"
+        name="travelerEmail{{i}}"
+      />
+      <input
+        type="text"
+        class="form-control mb-1"
+        placeholder="Mobile"
+        [(ngModel)]="traveler.mobile"
+        name="travelerMobile{{i}}"
+      />
+      <input
+        type="text"
+        class="form-control mb-1"
+        placeholder="Place of Residence"
+        [(ngModel)]="traveler.residence"
+        name="travelerResidence{{i}}"
+      />
+      <input 
+      type="number" 
+      class="form-control mb-1"
+      [(ngModel)]="traveler.age" 
+      name="travelerage{{i}}" 
+      placeholder="Age" 
+      required />
+
+      <select class="form-control mb-2" [(ngModel)]="traveler.gender" name="travelergender{{i}}" required>
+      <option value="" disabled selected>Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+      <button type="button" class="btn btn-danger btn-sm mt-1" (click)="removeTraveler(i)" *ngIf="currentBooking.travelers.length > 1">
+        Remove Traveler
+      </button>
+    </div>
+    <button type="button" class="btn btn-primary btn-sm mb-2" (click)="addTraveler()">
+      Add Traveler
+    </button>
+
+    <!-- Vehicle -->
+    <select class="form-control mb-2" [(ngModel)]="currentBooking.vehicle" name="vehicle">
+      <option value="" disabled>Select Vehicle</option>
+      <option *ngFor="let v of vehicles" [value]="v">{{ v }}</option>
+    </select>
+
+    <!-- Batch -->
+    <select class="form-control mb-2" [(ngModel)]="currentBooking.batch" name="batch">
+      <option value="" disabled>Select Batch</option>
+      <option *ngFor="let b of batches" [value]="b">{{ b }}</option>
+    </select>
+
+    <!-- Status -->
+    <select class="form-control mb-2" [(ngModel)]="currentBooking.status" name="status">
+      <option value="pending">Pending</option>
+      <option value="confirmed">Confirmed</option>
+      <option value="completed">Completed</option>
+      <option value="cancelled">Cancelled</option>
+    </select>
+
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-success" (click)="saveBooking()">
+        {{ isEditing ? 'Save Changes' : 'Add Booking' }}
+      </button>
+      <button class="btn btn-secondary" (click)="cancelForm()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Booking List -->
+  <div class="row">
+    <div class="col-md-4 mb-3" *ngFor="let booking of filteredBookings">
+      <div class="card shadow p-3 h-100">
+        <h5 class="card-title">{{ booking.organizer }}</h5>
+        <p><strong>Package ID:</strong> {{ booking.package_id }}</p>
+        <p><strong>No. of Travelers:</strong> {{ booking.travelers.length }}
+        <p><strong>Vehicle:</strong> {{ booking.vehicle }}</p>
+        <p><strong>Batch:</strong> {{ booking.batch }}</p>
+        <p><strong>Travelers:</strong></p>
+        <ul>
+          <li *ngFor="let t of booking.travelers">
+            {{ t.name }} - {{ t.email }} - {{ t.mobile }} - {{ t.residence }} - {{ t.age }} - {{ t.gender }}
+          </li>
+        </ul>
+        <p>
+          <strong>Status:</strong>
+          <span
+            class="badge"
+            [ngClass]="{
+              'bg-success': booking.status === 'completed',
+              'bg-warning': booking.status === 'confirmed',
+              'bg-secondary': booking.status === 'pending',
+              'bg-danger': booking.status === 'cancelled'
+            }"
+          >
+            {{ booking.status }}
+          </span>
+        </p>
+
+        <div class="d-flex justify-content-between mt-2">
+          <button class="btn btn-primary btn-sm" (click)="editBooking(booking)">
+            <i class="fa-solid fa-pencil"></i> Edit
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="deleteBooking(booking.id)">
+            <i class="fa-solid fa-trash"></i> Delete
+          </button>
+          <button class="btn btn-warning btn-sm" *ngIf="booking.status !== 'cancelled'" (click)="cancelBooking(booking)">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-popup
+  [visible]="popupOpen"
+  [title]="popupTitle"
+  (closed)="closePopup()"
+>
+  <p>{{ popupMessage }}</p>
+
+  <!-- Show Yes/No buttons if it's a confirm popup -->
+  <div *ngIf="isConfirmPopup" class="mt-3 d-flex justify-content-end gap-2">
+    <button class="btn btn-danger btn-sm" (click)="onConfirm()">Yes</button>
+    <button class="btn btn-secondary btn-sm" (click)="closePopup()">No</button>
+    
+  </div>
+</app-popup>

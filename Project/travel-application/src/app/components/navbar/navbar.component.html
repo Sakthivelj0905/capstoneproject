@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg bg-red-600 shadow-lg ">
+  <div class="container-fluid px-4">
+
+    <!-- Logo / Brand -->
+     <img src="../../../assets/logo.png" alt="logo" class="logo">
+    <a class="navbar-brand text-black font-bold text-2xl tracking-wide" routerLink="/customer">
+    TravelMate
+    </a>
+
+    <!-- Hamburger for mobile -->
+    <button class="navbar-toggler bg-white text-red-600 border-0" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      ☰
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav gap-3">
+        <li class="nav-item">
+          <a class="nav-link hover:text-yellow-300 transition-all" routerLink="/customer" ><i class="fa-regular fa-house"></i> Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link hover:text-yellow-300 transition-all" routerLink="/packages"><i class="fa-solid fa-suitcase"></i> Packages</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link hover:text-yellow-300 transition-all" routerLink="/history"><i class="fa-solid fa-list"></i> Booking History</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link hover:text-yellow-300 transition-all" (click)="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+        </li>
+      </ul>
+    </div>
+      <li class="nav-link hover:text-yellow-300 transition-all">
+        <span class="font-semibold text-red-600">   <i class="fa-solid fa-user"></i> {{ username }}</span>
+      </li>
+
+  </div>
+</nav>

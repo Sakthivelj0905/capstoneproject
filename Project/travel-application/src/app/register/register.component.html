@@ -1,0 +1,101 @@
+<div class="register-container">
+  <div class="register-box">
+    <h2 class="logo">TravelMate</h2>
+    <h1>Create your account</h1>
+    <p>
+      Already have an account? 
+      <a routerLink="/" class="login">Login here</a>
+    </p>
+
+    <!-- Pass #registerForm to access validation state -->
+    <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
+      
+      <!-- Full Name -->
+      <div class="input-group">
+        <input 
+          type="text" 
+          placeholder="Full Name" 
+          [(ngModel)]="name" 
+          name="name" 
+          required 
+          #nameCtrl="ngModel" 
+        />
+        <div class="error" *ngIf="nameCtrl.invalid && nameCtrl.touched">
+          Full Name is required
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="input-group">
+        <input 
+          type="email" 
+          placeholder="Email" 
+          [(ngModel)]="email" 
+          name="email" 
+          required 
+          email 
+          #emailCtrl="ngModel"
+        />
+        <div class="error" *ngIf="emailCtrl.invalid && emailCtrl.touched">
+          Please enter a valid email
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="input-group">
+        <input 
+          type="password" 
+          placeholder="Password" 
+          [(ngModel)]="password" 
+          name="password" 
+          required 
+          minlength="6" 
+          #passwordCtrl="ngModel"
+        />
+        <div class="error" *ngIf="passwordCtrl.invalid && passwordCtrl.touched">
+          Password must be at least 6 characters
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="input-group">
+        <input 
+          type="password" 
+          placeholder="Confirm Password" 
+          [(ngModel)]="confirmPassword" 
+          name="confirmPassword" 
+          required 
+          #confirmPasswordCtrl="ngModel"
+        />
+        <div class="error" *ngIf="confirmPasswordCtrl.touched && confirmPassword !== password">
+          Passwords do not match
+        </div>
+      </div>
+
+      <!-- Button disabled until form valid -->
+      <button type="submit" class="register-btn" [disabled]="registerForm.invalid">
+        Register
+      </button>
+    </form>
+
+    <div class="footer-links">
+      <a routerLink="/privacy-policy">Privacy Policy</a>
+      <a routerLink="/terms-of-service">Terms of Service</a>
+    </div>
+  </div>
+</div>
+
+<!-- Popup -->
+<app-popup
+  [visible]="popupOpen"
+  title="Registration Status"
+  (closed)="closePopup()"
+>
+  <p>
+    <i
+      class="fa-solid"
+      [ngClass]="popupMessage.includes('successful') ? 'fa-check' : 'fa-xmark'"
+    ></i>
+    {{ popupMessage }}
+  </p>
+</app-popup>

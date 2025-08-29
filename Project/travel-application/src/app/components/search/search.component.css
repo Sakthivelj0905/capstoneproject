@@ -1,0 +1,66 @@
+
+/* Center container */
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Input Field */
+.search-bar {
+  width: 60%;
+  max-width: 450px;
+  padding: 14px 20px;
+  font-size: 1rem;
+  border-radius: 30px;
+  border: 2px solid #ddd;
+  outline: none;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Focus Effect */
+.search-bar:focus {
+  width: 70%;
+  border-color: #ff4b2b;
+  box-shadow: 0 6px 20px rgba(255, 75, 43, 0.5);
+  transform: scale(1.05);
+}
+
+/* Placeholder Animation */
+.search-bar::placeholder {
+  color: #888;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.search-bar:focus::placeholder {
+  opacity: 0.6;
+  transform: translateX(8px);
+}
+
+/* Search Button */
+.search-btn {
+  margin-left: 10px;
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 30px;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 12px rgba(255, 65, 108, 0.4);
+}
+
+/* Hover Animation */
+.search-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(255, 65, 108, 0.6);
+}
+
+/* Click Animation */
+.search-btn:active {
+  transform: scale(0.95);
+}

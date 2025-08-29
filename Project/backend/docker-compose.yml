@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  gateway:
+    build: ./gateway
+    container_name: gateway
+    ports:
+      - "8000:8000"
+    environment:
+      AUTH_SERVICE: http://auth:5001
+      TRAVEL_SERVICE: http://travel:5002
+    depends_on:
+      - auth
+      - travel
+    restart: unless-stopped
+
+  auth:
+    build: ./auth
+    container_name: auth
+    ports:
+      - "5001:5001"
+    volumes:
+      - auth_db:/app/instance
+    restart: unless-stopped
+
+  travel:
+    build: ./travel
+    container_name: travel
+    ports:
+      - "5002:5002"
+    volumes:
+      - travel_db:/app/instance
+    restart: unless-stopped
+
+  frontend:
+    build: ../travel-application
+    container_name: frontend
+    ports:
+      - "8081:80"
+    depends_on:
+      - gateway
+    restart: unless-stopped
+
+volumes:
+  auth_db:
+  travel_db:

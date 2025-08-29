@@ -1,0 +1,87 @@
+h2{
+margin-left: 80px;
+margin-top: 40px;
+  font-size: 30px;
+  color: #ff1e00;
+  margin-bottom: 0; 
+  text-shadow: 1px 1px 4px rgba(226, 150, 63, 0.6);
+}
+.dashboard-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+  min-height: 70vh;
+}
+
+.card {
+  background: white;
+  width: 220px;
+  height: 250px;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.card-content {
+  text-align: center;
+  z-index: 1;
+  transition: transform 0.3s;
+}
+
+.card img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 15px;
+  transition: transform 0.3s;
+}
+
+.card h3 {
+  color: #ff7f50;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  transition: color 0.3s, transform 0.3s;
+}
+
+/* Card hover effects */
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+}
+
+.card:hover img {
+  transform: scale(1.2) rotate(-10deg);
+}
+
+.card:hover h3 {
+  transform: translateY(-5px);
+  color: #ff9933;
+}
+
+/* Gradient overlay inside the card */
+.card::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(135deg, #ffcc99, #ff7f50);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.5s;
+  z-index: 0;
+}
+
+.card:hover::after {
+  opacity: 0.2;
+  transform: rotate(20deg);
+}

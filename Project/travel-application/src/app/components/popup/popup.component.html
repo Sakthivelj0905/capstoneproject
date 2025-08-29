@@ -1,0 +1,33 @@
+<!-- Render only when visible -->
+<div
+  *ngIf="visible"
+  class="popup-backdrop"
+  (click)="close()"
+  @backdrop
+  aria-hidden="true"
+>
+  <div
+    class="popup-card"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="title"
+    (click)="stop($event)"
+    @popup
+    tabindex="-1"
+  >
+    <div class="popup-header">
+      <h3 class="popup-title">{{ title }}</h3>
+      <button class="icon-btn" (click)="close()" aria-label="Close">
+        ✕
+      </button>
+    </div>
+
+    <div class="popup-body">
+      <ng-content></ng-content>
+    </div>
+
+    <div class="popup-footer">
+      <button class="btn-gradient" (click)="close()">Close</button>
+    </div>
+  </div>
+</div>

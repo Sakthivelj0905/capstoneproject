@@ -1,0 +1,107 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="container">
+
+  <!-- Cards to toggle views -->
+  <div class="card-container" *ngIf="!showAdminForm">
+    <div class="card admin-card" [class.active]="selectedView==='admin'" (click)="selectView('admin')">
+      <h3>Admin</h3>
+    </div>
+    <div class="card customer-card" [class.active]="selectedView==='customer'" (click)="selectView('customer')">
+      <h3>Customer</h3>
+    </div>
+  </div>
+
+  <!-- ---------------- Admin Section ---------------- -->
+  <div *ngIf="selectedView === 'admin' && !showAdminForm" class="section admin-section">
+    <h2>Admin Management</h2>
+
+    <!-- Search Admins -->
+    <input placeholder="Search Admins" [(ngModel)]="adminSearch" (input)="searchAdmins()">
+
+    <!-- Add Admin Button -->
+    <button (click)="openAdminForm()" class="btn-toggle">
+      Add New Admin
+    </button>
+
+    <!-- Admin Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let admin of filteredAdmins">
+          <td>{{admin.id}}</td>
+          <td>{{admin.name}}</td>
+          <td>{{admin.email}}</td>
+          <td>{{admin.status}}</td>
+          <td>
+            <button class="btn-block" 
+              (click)="admin.status === 'blocked' ? unblockAdmin(admin.id!) : blockAdmin(admin.id!)">
+              {{ admin.status === 'blocked' ? 'Unblock' : 'Block' }}
+            </button>
+            <button class="btn-delete" (click)="deleteAdmin(admin.id!)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ---------------- Customer Section ---------------- -->
+  <div *ngIf="selectedView === 'customer' && !showAdminForm" class="section customer-section">
+    <h2>Customer Management</h2>
+
+    <!-- Search Customers -->
+    <input placeholder="Search Customers" [(ngModel)]="customerSearch" (input)="searchCustomers()">
+
+    <!-- Customer Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of filteredCustomers">
+          <td>{{customer.id}}</td>
+          <td>{{customer.name}}</td>
+          <td>{{customer.email}}</td>
+          <td>{{customer.status}}</td>
+          <td>
+            <button class="btn-block" 
+              (click)="customer.status === 'blocked' ? unblockCustomer(customer.id!) : blockCustomer(customer.id!)">
+              {{ customer.status === 'blocked' ? 'Unblock' : 'Block' }}
+            </button>
+            <button class="btn-delete" (click)="deleteCustomer(customer.id!)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ---------------- Add Admin Modal ---------------- -->
+  <div class="admin-modal" *ngIf="showAdminForm">
+    <div class="admin-form">
+      <h2>Add New Admin</h2>
+      <input placeholder="Name" [(ngModel)]="newAdmin.name">
+      <input placeholder="Email" [(ngModel)]="newAdmin.email">
+      <input type="password" placeholder="Password" [(ngModel)]="newAdmin.password">
+      <input type="password" placeholder="Confirm Password" [(ngModel)]="newAdmin.confirmPassword">
+
+      <div class="form-buttons">
+        <button (click)="addAdmin()" class="btn-add">Add</button>
+        <button (click)="cancelAdminForm()" class="btn-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+</div>

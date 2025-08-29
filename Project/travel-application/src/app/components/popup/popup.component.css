@@ -1,0 +1,85 @@
+/* Backdrop */
+.popup-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+}
+
+/* Card */
+.popup-card {
+  width: min(92vw, 540px);
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  overflow: hidden;
+}
+
+/* Header */
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.popup-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* Close (X) */
+.icon-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 12px;
+  transition: transform 120ms ease, background-color 120ms ease;
+}
+.icon-btn:hover { background: #f5f5f5; transform: scale(1.04); }
+
+/* Body */
+.popup-body {
+  padding: 18px;
+  color: #333;
+}
+
+/* Footer */
+.popup-footer {
+  padding: 14px 18px 18px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Orange → white gradient button (your theme) */
+.btn-gradient {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff7a18, #ffd194);
+  color: #1f1f1f;
+  font-weight: 600;
+  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+  box-shadow: 0 6px 16px rgba(255, 122, 24, 0.25);
+}
+.btn-gradient:hover { transform: translateY(-1px); filter: brightness(1.03); }
+.btn-gradient:active { transform: translateY(0); }
+
+/* Optional: subtle focus outline */
+.btn-gradient:focus-visible,
+.icon-btn:focus-visible,
+.popup-card:focus-visible {
+  outline: 2px solid #ff9b4b;
+  outline-offset: 2px;
+}

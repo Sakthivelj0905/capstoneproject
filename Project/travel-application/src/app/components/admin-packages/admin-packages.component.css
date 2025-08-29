@@ -1,0 +1,30 @@
+.add{
+    font-weight: 500;
+  font-size: 1rem;
+  position: relative; /* required for underline effect */
+  color: black;
+  text-decoration: none;
+  padding: 5px 10px;
+}
+.add:hover,.edit:hover{
+    transform: scale(1.05);
+    background-color: #ff1e00;
+    border-radius: 8px;
+    color: white;
+    border: none;
+}
+.edit{
+    font-weight: 500;
+  font-size: 1rem;
+  position: relative; /* required for underline effect */
+  color: black;
+  text-decoration: none;
+  padding: 5px 10px;
+}
+.delete:hover{
+    transform: scale(1.05);
+    background-color: #ff0202;
+    border-radius: 8px;
+    color: white;
+    border: none;
+}

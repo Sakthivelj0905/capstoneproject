@@ -1,0 +1,149 @@
+<app-navbar></app-navbar>
+
+<div class="container my-5">
+  <h2 class="text-center mb-4 fw-bold">My Booking History</h2>
+
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-4" *ngFor="let booking of userBookings">
+      <div class="booking-card shadow-lg p-3 rounded-4 position-relative overflow-hidden">
+
+        <!-- Ribbon -->
+        <div class="ribbon" [ngClass]="booking.status">{{ booking.status | titlecase }}</div>
+
+        <!-- Booking Details (Hidden if ticket is shown) -->
+        <div *ngIf="!booking.showTicket">
+          <h5 class="fw-bold mb-2">{{ booking.organizer }}</h5>
+          <p class="text-muted mb-1"><strong>Customer ID:</strong> {{ booking.user_id }}</p>
+          <p class="text-muted mb-1"><strong>Package ID:</strong> {{ booking.package_id }}</p>
+          <p class="text-muted mb-1"><strong>Vehicle:</strong> {{ booking.vehicle }}</p>
+          <p class="text-muted mb-1"><strong>Batch:</strong> {{ booking.batch }}</p>
+          <p class="text-muted mb-1"><strong>No. of Travelers:</strong> {{ booking.travelers.length }}</p>
+
+          <!-- Toggle Travelers Button -->
+          <button class="btn btn-outline-primary btn-sm mt-2 mb-2" (click)="toggleTravelers(booking)">
+            {{ booking.showTravelers ? 'Hide Travelers' : 'View Travelers' }}
+          </button>
+
+          <!-- Unique Traveler Display -->
+          <div *ngIf="booking.showTravelers" class="traveler-style mt-2">
+            <div class="traveler-card" *ngFor="let t of booking.travelers">
+              <h6>{{ t.name }} <span class="verified stamp-animate">✔ Verified</span></h6>
+              <p>{{ t.age }} yrs | {{ t.gender }} | {{ t.email }} | {{ t.mobile }}</p>
+              <p>{{ t.residence }}</p>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mt-3 d-flex gap-2 flex-wrap">
+
+            <!-- Cancel Button -->
+        <button class="btn btn-danger btn-sm btn-cancel"
+        [disabled]="!canCancel(booking)"
+        (click)="cancelBooking(booking)">
+        <span>Cancel</span>
+        <i class="fa-solid fa-ban"></i>
+        </button>
+
+            <!-- Review -->
+          <button class="btn btn-success btn-sm btn-review"
+          *ngIf="showReviewButton(booking)"
+          (click)="openReview(booking)">
+          Review
+          <span class="stars">★</span>
+          </button>
+
+
+
+            <!-- Pay Now -->
+            <button 
+              class="btn btn-outline-primary btn-sm"
+              *ngIf="booking.status === 'pending'"
+              (click)="openPayPopup(booking)">
+               Pay Now
+              </button>
+
+
+            <!-- Generate Ticket -->
+            <button class="btn btn-outline-primary btn-sm"
+                    *ngIf="booking.status === 'confirmed'"
+                    (click)="generateTicket(booking)">
+              Generate Ticket
+            </button>
+          </div>
+        </div>
+
+        <!-- Ticket Design -->
+        <div *ngIf="booking.showTicket" id="ticket-{{booking.id}}" class="ticket-card mt-3 p-3">
+          <h4>Booking Ticket</h4>
+          <p><strong>Organizer:</strong> {{ booking.organizer }}</p>
+          <p><strong>Batch:</strong> {{ booking.batch }}</p>
+          <p><strong>Vehicle:</strong> {{ booking.vehicle }}</p>
+
+          <div class="traveler-list mt-2">
+            <div class="traveler" *ngFor="let t of booking.travelers">
+              {{ t.name }} <span class="verified stamp-animate">✔ Verified</span>
+            </div>
+          </div>
+
+          <!-- Back Button -->
+          <button class="btn btn-gradient-primary mt-3" (click)="closeTicket(booking)">
+            ← Back
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Modal -->
+<div class="modal unique-modal" *ngIf="showPayModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>💳 Payment Confirmation</h3>
+      <span class="close-btn" (click)="closePayPopup()">×</span>
+    </div>
+    <p>Type <strong>"PAY"</strong> to confirm your booking:</p>
+    <input [(ngModel)]="payInput" placeholder="Type PAY" />
+    <button class="action-btn" (click)="submitPayment()">Confirm Payment</button>
+  </div>
+</div>
+
+<!-- Review Modal -->
+<div class="modal unique-modal" *ngIf="showReviewModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>⭐ Write a Review</h3>
+      <span class="close-btn" (click)="closeReview()">×</span>
+    </div>
+    <p>Rate your experience:</p>
+    <div class="review-stars">
+  <span 
+    *ngFor="let star of [1,2,3,4,5]; let i = index"
+    (mouseenter)="hoverIndex = i + 1"
+    (mouseleave)="hoverIndex = 0"
+    (click)="setRating(i + 1)"
+    [class.hovered]="i < hoverIndex"
+    [class.selected]="i < currentRating"
+  >
+    ★
+  </span>
+</div>
+
+    <textarea [(ngModel)]="reviewText" placeholder="Share your experience..."></textarea>
+    <button class="action-btn" (click)="submitReview()">Submit Review</button>
+  </div>
+</div>
+
+<app-popup
+  [visible]="popupOpen"
+  title="Booking Status"
+  (closed)="closePopup()"
+>
+  <p>
+    <i 
+      class="fa-solid" 
+      [ngClass]="popupMessage.includes('success') ? 'fa-check' : 'fa-xmark'">
+    </i> 
+    {{ popupMessage }}
+  </p>
+</app-popup>

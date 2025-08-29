@@ -1,0 +1,13 @@
+<div class="container my-5">
+  <h3 class="text-center mb-4 fw-bold">Happy Customers <i class="fa-solid fa-person"></i></h3>
+  <div class="row g-4">
+    <div class="col-md-4" *ngFor="let review of reviews">
+      <div class="review-card p-4 text-center">
+        <img [src]="review.image" alt="{{review.name}}" class="review-img mb-3 rounded-circle" width="80" height="80">
+        <h5 class="review-name">{{ review.name }}</h5>
+        <p class="review-comment">"{{ review.comment }}"</p>
+        <div class="review-rating">⭐ {{ review.rating }}/5</div>
+      </div>
+    </div>
+  </div>
+</div>

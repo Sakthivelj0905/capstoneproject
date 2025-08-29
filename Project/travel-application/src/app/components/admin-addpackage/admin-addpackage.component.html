@@ -1,0 +1,206 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="container my-5">
+  <h2 class="mb-4 text-center animate__animated animate__fadeInDown">
+    {{ isEditMode ? 'Edit Package' : 'Add Package' }}
+  </h2>
+
+  <form #packageForm="ngForm" (ngSubmit)="onSubmit(packageForm)" class="package-form animate__animated animate__fadeInUp">
+
+    <!-- Package Name -->
+    <div class="mb-3">
+      <label class="form-label">Package Name</label>
+      <input type="text" class="form-control form-control-lg" [(ngModel)]="package.name" name="name"
+             required minlength="3" maxlength="50" #name="ngModel">
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger mt-1">
+        <div *ngIf="name.errors?.['required']">Package Name is required.</div>
+        <div *ngIf="name.errors?.['minlength']">Minimum 3 characters required.</div>
+        <div *ngIf="name.errors?.['maxlength']">Maximum 50 characters allowed.</div>
+      </div>
+    </div>
+
+    <!-- Overview -->
+    <div class="mb-3">
+      <label class="form-label">Overview</label>
+      <textarea class="form-control form-control-lg" [(ngModel)]="package.overview" name="overview" rows="2"
+                required minlength="10" #overview="ngModel"></textarea>
+      <div *ngIf="overview.invalid && (overview.dirty || overview.touched)" class="text-danger mt-1">
+        <div *ngIf="overview.errors?.['required']">Overview is required.</div>
+        <div *ngIf="overview.errors?.['minlength']">Minimum 10 characters required.</div>
+      </div>
+    </div>
+
+    <!-- Duration -->
+    <div class="mb-3">
+      <label class="form-label">Duration (Days)</label>
+      <input type="number" class="form-control form-control-lg" [(ngModel)]="package.duration" name="duration"
+             required min="1" #duration="ngModel">
+      <div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="text-danger mt-1">
+        <div *ngIf="duration.errors?.['required']">Duration is required.</div>
+        <div *ngIf="duration.errors?.['min']">Must be at least 1 day.</div>
+      </div>
+    </div>
+
+    <!-- Slots -->
+    <div class="mb-3">
+      <label class="form-label">Slots</label>
+      <input type="number" class="form-control form-control-lg" [(ngModel)]="package.slots" name="slots"
+             required min="1" #slots="ngModel">
+      <div *ngIf="slots.invalid && (slots.dirty || slots.touched)" class="text-danger mt-1">
+        <div *ngIf="slots.errors?.['required']">Slots are required.</div>
+        <div *ngIf="slots.errors?.['min']">At least 1 slot is required.</div>
+      </div>
+    </div>
+
+    <!-- Price -->
+    <div class="mb-3">
+      <label class="form-label">Price (₹)</label>
+      <input type="number" class="form-control form-control-lg" [(ngModel)]="package.price" name="price"
+             required min="0" #price="ngModel">
+      <div *ngIf="price.invalid && (price.dirty || price.touched)" class="text-danger mt-1">
+        <div *ngIf="price.errors?.['required']">Price is required.</div>
+        <div *ngIf="price.errors?.['min']">Price cannot be negative.</div>
+      </div>
+    </div>
+
+    <!-- Itinerary -->
+    <div class="mb-3">
+      <label class="form-label">Itinerary</label>
+      <div *ngFor="let item of package.itinerary || []; let i = index" class="mb-2 d-flex gap-2">
+        <input type="text" class="form-control form-control-lg" [(ngModel)]="item.plan" name="plan{{i}}" placeholder="Plan"
+               required minlength="3" #plan="ngModel">
+        <input type="text" class="form-control form-control-lg" [(ngModel)]="item.duration" name="planDuration{{i}}" placeholder="plan Description"
+               required min="1" #planDuration="ngModel">
+        <button type="button" class="btn btn-outline-danger btn-lg" (click)="removeItinerary(i)">Remove</button>
+      </div>
+      <button type="button" class="btn btn-outline-primary btn-lg mt-2" (click)="addItinerary()">Add Plan</button>
+    </div>
+
+    <!-- Vehicles -->
+    <div class="mb-3">
+      <label class="form-label">Vehicles</label>
+      <div class="form-check" *ngFor="let v of availableVehicles">
+        <input class="form-check-input" type="checkbox" [id]="v.name"
+               (change)="onVehicleChange($event, v)" [checked]="isVehicleSelected(v)">
+        <label class="form-check-label" [for]="v.name">
+          {{ v.name }}
+          <img [src]="v.icon" alt="{{v.name}}" width="30" class="ms-2">
+        </label>
+      </div>
+      <div *ngIf="package.vehicles?.length === 0 && packageForm.submitted" class="text-danger mt-1">
+        Please select at least one vehicle.
+      </div>
+    </div>
+
+    <!-- Facilities -->
+    <div class="mb-3">
+      <label class="form-label">Facilities</label>
+      <div class="form-check" *ngFor="let f of availableFacilities">
+        <input class="form-check-input" type="checkbox" [id]="f.name"
+               (change)="onFacilityChange($event, f)" [checked]="isFacilitySelected(f)">
+        <label class="form-check-label" [for]="f.name">
+          {{ f.name }}
+          <img [src]="f.icon" alt="{{f.name}}" width="30" class="ms-2">
+        </label>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control form-control-lg" [(ngModel)]="package.description" name="description" rows="3"
+                required minlength="10" #description="ngModel"></textarea>
+      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-danger mt-1">
+        <div *ngIf="description.errors?.['required']">Description is required.</div>
+        <div *ngIf="description.errors?.['minlength']">Minimum 10 characters required.</div>
+      </div>
+    </div>
+
+    <!-- Insights -->
+    <div class="mb-3">
+      <label class="form-label">Insights</label>
+      <textarea class="form-control form-control-lg" [(ngModel)]="package.insights" name="insights" rows="2"></textarea>
+    </div>
+
+    <!-- Suggestions -->
+    <div class="mb-3">
+      <label class="form-label">Suggestions</label>
+      <div *ngFor="let s of package.suggestions; let i = index; trackBy: trackByIndex" class="mb-2 d-flex gap-2">
+        <input type="text" class="form-control form-control-lg" [(ngModel)]="package.suggestions[i]"
+               name="suggestion{{i}}" placeholder="Suggestion" required minlength="3">
+        <button type="button" class="btn btn-outline-danger btn-lg" (click)="removeSuggestion(i)">Remove</button>
+      </div>
+      <button type="button" class="btn btn-outline-primary btn-lg mt-2" (click)="addSuggestion()">Add Suggestion</button>
+    </div>
+
+    <!-- Batches -->
+    <div class="mb-3">
+      <label class="form-label">Batches</label>
+      <div *ngFor="let b of package.batches || []; let i = index; trackBy:trackByIndex" class="mb-2 d-flex gap-2">
+        <input type="date" class="form-control form-control-lg" [(ngModel)]="package.batches[i]"
+               name="batch{{i}}" required #batch="ngModel">
+        <button type="button" class="btn btn-outline-danger btn-lg" (click)="removeBatch(i)">Remove</button>
+      </div>
+      <button type="button" class="btn btn-outline-primary btn-lg mt-2" (click)="addBatch()">Add Batch</button>
+    </div>
+
+    <!-- Images -->
+    <div class="mb-3">
+      <label class="form-label">Images</label>
+      <div *ngFor="let img of package.images || []; let i = index; trackBy:trackByIndex" class="mb-2 d-flex gap-2 align-items-start">
+        <div class="flex-grow-1">
+          <input type="url" class="form-control form-control-lg" [(ngModel)]="package.images[i]"
+                 name="images{{i}}" placeholder="Image URL" required pattern="https?://.+" #image="ngModel">
+          <div *ngIf="image.invalid && (image.dirty || image.touched)" class="text-danger mt-1">
+            <div *ngIf="image.errors?.['required']">Image URL is required.</div>
+            <div *ngIf="image.errors?.['pattern']">Enter a valid URL.</div>
+          </div>
+          <!-- Preview -->
+          <div class="mt-2">
+            <img *ngIf="package.images[i]" [src]="package.images[i]" alt="Preview" 
+                 style="max-width: 150px; max-height: 100px; border: 1px solid #ccc; padding: 2px;">
+          </div>
+        </div>
+        <button type="button" class="btn btn-outline-danger btn-lg" (click)="removeImage(i)">Remove</button>
+      </div>
+      <button type="button" class="btn btn-outline-primary btn-lg mt-2" (click)="addImage()">Add Image</button>
+    </div>
+
+    <!-- Instructions -->
+    <div class="mb-3">
+      <label class="form-label">Instructions</label>
+      <textarea class="form-control form-control-lg" [(ngModel)]="package.instructions" name="instructions"
+                rows="2" required minlength="5" #instructions="ngModel"></textarea>
+      <div *ngIf="instructions.invalid && (instructions.dirty || instructions.touched)" class="text-danger mt-1">
+        <div *ngIf="instructions.errors?.['required']">Instructions are required.</div>
+        <div *ngIf="instructions.errors?.['minlength']">Minimum 5 characters required.</div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="d-flex gap-3 mt-4 justify-content-center">
+      <button type="submit" class="btn btn-success btn-lg animate__animated animate__pulse">
+        {{ isEditMode ? 'Update Package' : 'Add Package' }}
+      </button>
+      <button type="button" class="btn btn-danger btn-lg animate__animated animate__pulse" (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<!-- Popup -->
+<app-popup [visible]="popupOpen" [title]="popupTitle" (closed)="closePopup()">
+  <ng-container *ngIf="actionType === 'add'; else updateOrError">
+    <p><i class="fa-solid fa-check"></i> Successfully added! Redirecting...</p>
+  </ng-container>
+
+  <ng-template #updateOrError>
+    <ng-container *ngIf="actionType === 'update'; else error">
+      <p><i class="fa-solid fa-check"></i> Successfully updated! Redirecting...</p>
+    </ng-container>
+    <ng-template #error>
+      <p><i class="fa-solid fa-xmark"></i> Action Cancelled!</p>
+    </ng-template>
+  </ng-template>
+</app-popup>

@@ -1,0 +1,12 @@
+<div class="container text-center my-4">
+  <div class="search-container">
+    <input type="text" class="search-bar form-control" placeholder="Search packages..."
+  [(ngModel)]="searchText"
+  (input)="onSearchChange()">
+    <button class="search-btn">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+  </div>
+</div>
+
+

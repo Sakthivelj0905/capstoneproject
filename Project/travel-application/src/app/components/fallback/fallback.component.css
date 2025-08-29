@@ -1,0 +1,50 @@
+/* Full screen 404 page */
+.page_404 {
+    height: 100vh; /* full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    font-family: 'Arvo', serif;
+    text-align: center;
+}
+
+.four_zero_four_bg {
+    background-image: url('https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif');
+    height: 400px;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-bottom: 30px;
+}
+
+.four_zero_four_bg h1 {
+    font-size: 80px;
+    color: #000;
+}
+
+.contant_box_404 h3 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.contant_box_404 p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.link_404 {
+    color: #fff !important;
+    padding: 10px 20px;
+    background: #39ac31;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.link_404:hover {
+    background: #2d8b27;
+}

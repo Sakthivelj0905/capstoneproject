@@ -1,0 +1,62 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="container my-4">
+  <h3 class="mb-3">Customer Reviews</h3>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+
+  <div class="row g-3">
+    <div class="col-12 col-sm-6 col-lg-4" *ngFor="let review of reviews">
+      <div class="review-card shadow-sm">
+        <div class="d-flex align-items-center gap-3 mb-2">
+          <img [src]="review.image || 'assets/default-user.png'" 
+               alt="avatar" class="avatar" />
+          <div>
+            <div class="name">{{ review.name }}</div>
+            <div class="stars">
+              <span *ngFor="let star of [1,2,3,4,5]" 
+                    class="star" 
+                    [class.filled]="star <= review.rating">★</span>
+              <span class="rating-number">{{ review.rating }}/5</span>
+            </div>
+          </div>
+        </div>
+        <p class="comment">“{{ review.comment }}”</p>
+
+        <button class="delete-btn" (click)="deleteReview(review.id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-popup
+  [visible]="popupOpen"
+  [title]="popupTitle"
+  (closed)="closePopup()"
+>
+  <ng-container [ngSwitch]="actionType">
+    
+    <!-- Confirm delete -->
+    <ng-container *ngSwitchCase="'confirm'">
+      <p>{{ popupMessage }}</p>
+      <div class="d-flex gap-2 mt-3">
+        <button class="btn btn-danger" (click)="confirmDelete()">Yes, Delete</button>
+        <button class="btn btn-secondary" (click)="closePopup()">Cancel</button>
+      </div>
+    </ng-container>
+
+    <!-- Success -->
+    <ng-container *ngSwitchCase="'update'">
+      <p><i class="fa-solid fa-check"></i> {{ popupMessage }}</p>
+    </ng-container>
+
+    <!-- Error -->
+    <ng-container *ngSwitchCase="'error'">
+      <p><i class="fa-solid fa-xmark"></i> {{ popupMessage }}</p>
+    </ng-container>
+
+    <!-- Cancel -->
+    <ng-container *ngSwitchCase="'cancel'">
+      <p><i class="fa-solid fa-ban"></i> Action cancelled!</p>
+    </ng-container>
+
+  </ng-container>
+</app-popup>

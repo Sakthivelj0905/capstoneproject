@@ -1,0 +1,70 @@
+.navbar-brand {
+  font-family: "Edu NSW ACT Cursive", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.nav-link {
+  font-weight: 500;
+  font-size: 1rem;
+  position: relative; /* required for underline effect */
+  color: black;
+  text-decoration: none;
+  padding: 5px 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect */
+.nav-link:hover {
+  transform: scale(1.05);
+  background-color: #ff1e00;
+  border-radius: 8px;
+  color: white;
+}
+
+/* Active underline animation */
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px; /* distance of underline from text */
+  width: 100%;
+  height: 3px;
+  background-color: orange;
+  border-radius: 3px;
+
+  /* underline animation */
+  transform: scaleX(0);
+  transform-origin: right;
+  animation: underlineAnim 0.4s ease forwards;
+}
+
+@keyframes underlineAnim {
+  from {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+  to {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+body {
+  padding-top: 80px;
+}
+
+.logo {
+  height: 50px;
+  animation: rotateOnce 1s ease-in-out;
+}
+
+@keyframes rotateOnce {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

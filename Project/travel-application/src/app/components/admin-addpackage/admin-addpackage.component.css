@@ -1,0 +1,150 @@
+/* Container styling */
+/* Container styling - wider version */
+.container {
+  max-width: 1200px; /* increased from 900px to 1200px */
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, #fdfbfb, #ebedee);
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeInContainer 1s ease forwards;
+}
+
+
+/* Heading styling */
+h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: #4b4b4b;
+  position: relative;
+  overflow: hidden;
+}
+
+h2::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 4px;
+  background-color: #ff7e5f;
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+  transform: scaleX(0);
+  animation: lineGrow 1s forwards 0.5s;
+}
+
+/* Form styling */
+.package-form {
+  background: #ffffffcc;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Input and textarea styling */
+.form-control {
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.form-control:focus {
+  border-color: #00b894;
+  box-shadow: 0 0 10px rgba(0, 184, 148, 0.3);
+}
+
+/* Label styling */
+.form-label {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Buttons styling */
+/* Gradient Buttons */
+button.btn-success,
+button.btn-outline-primary {
+  background: linear-gradient(45deg, #ff7e5f, #feb47b, #ffffff);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.4s ease;
+  background-size: 200% 200%;
+  animation: gradientMove 4s ease infinite;
+}
+
+button.btn-success:hover,
+button.btn-outline-primary:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 126, 95, 0.4);
+}
+
+/* Gradient animation */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Danger button with subtle orange-red gradient */
+button.btn-danger {
+  background: linear-gradient(45deg, #ff4b2b, #ff416c);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+button.btn-danger:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 75, 43, 0.4);
+}
+
+/* Card-like sections for itinerary, images, batches, suggestions */
+.mb-3 {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem !important;
+  transition: transform 0.3s ease;
+}
+
+.mb-3:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Checkbox images alignment */
+.form-check img {
+  transition: transform 0.3s ease;
+}
+
+.form-check img:hover {
+  transform: scale(1.2) rotate(5deg);
+}
+
+/* Animations */
+@keyframes fadeInContainer {
+  0% { opacity: 0; transform: translateY(20px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+
+@keyframes lineGrow {
+  0% { transform: scaleX(0);}
+  100% { transform: scaleX(1);}
+}
+
+/* Smooth fade-in for dynamic inputs */
+.mb-2 {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeInInput 0.5s forwards;
+}
+
+@keyframes fadeInInput {
+  0% { opacity: 0; transform: translateY(-10px);}
+  100% { opacity: 1; transform: translateY(0);}
+}

@@ -1,0 +1,65 @@
+.carousel-item img {
+  height: 400px;          /* Adjust as per design */
+  object-fit: cover;      /* Keeps proportion */
+  border-radius: 12px;
+}
+.carousel-item video {
+  height: 400px;          /* Adjust as per design */
+  object-fit: cover;      /* Keeps proportion */
+  border-radius: 12px;
+}
+
+
+.carousel-caption {
+  position: absolute;
+  top: 20%;               /* Move text higher on image */
+  transform: translateY(-50%);
+}
+
+.carousel-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  color: #fff;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+}
+
+.carousel-subtitle {
+    margin-top: 40px;
+  font-size: 50px;
+font-family: "Edu NSW ACT Cursive", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: #ff1e00;
+  margin-bottom: 0; 
+  text-shadow: 1px 1px 4px rgba(226, 150, 63, 0.6);
+  animation: bounce 1s ease forwards ;
+}
+.carousel-description1{
+    font-size: 30px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+@keyframes bounce {
+      0%   { transform: translateY(-200px); opacity: 0; }
+      40%  { transform: translateY(30px); opacity: 1; }
+      60%  { transform: translateY(-15px); }
+      80%  { transform: translateY(10px); }
+      100% { transform: translateY(0); }
+    }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* reveal from left to right */
+@keyframes reveal {
+  from {
+    clip-path: inset(0 100% 0 0);  /* fully hidden from right */
+  }
+  to {
+    clip-path: inset(0 0 0 0);     /* fully visible */
+  }
+}

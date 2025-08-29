@@ -1,0 +1,108 @@
+/* ---------------------- Add/Edit Form Animation ---------------------- */
+.booking-card {
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: linear-gradient(135deg, #ffffff, #fff5e6);
+}
+
+.booking-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Form slide down + fade in */
+.card[ng-reflect-ng-if="true"] {
+  animation: slideFadeDown 0.4s ease forwards;
+}
+
+@keyframes slideFadeDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------------- Button Animations ---------------------- */
+.btn {
+  background: linear-gradient(45deg, #ffa500, #ffffff);
+  color: #333;
+  font-weight: 600;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
+}
+
+.btn:hover {
+  background: linear-gradient(45deg, #ff8c00, #fff7e6);
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(255, 140, 0, 0.5);
+  color: #000;
+}
+
+
+/* ---------------------- Cards Fade In ---------------------- */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s forwards;
+}
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered delays */
+.delay-0 {
+  animation-delay: 0s;
+}
+.delay-1 {
+  animation-delay: 0.1s;
+}
+.delay-2 {
+  animation-delay: 0.2s;
+}
+.delay-3 {
+  animation-delay: 0.3s;
+}
+.delay-4 {
+  animation-delay: 0.4s;
+}
+.delay-5 {
+  animation-delay: 0.5s;
+}
+
+/* ---------------------- Search Box Focus ---------------------- */
+.search-box {
+  border-radius: 25px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 2px solid #ffa500;
+  transition: 0.3s;
+}
+.search-box:focus {
+  border-color: #ff6a00;
+  box-shadow: 0 0 8px rgba(255, 106, 0, 0.6);
+}
+
+/* ---------------------- Title Animation ---------------------- */
+.animate-title {
+  animation: slideDown 0.8s ease-in-out;
+}
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

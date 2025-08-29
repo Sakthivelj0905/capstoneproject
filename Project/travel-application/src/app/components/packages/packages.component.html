@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+<app-search (search)="filterPackages($event)"></app-search>
+<div class="container my-5">
+  <h2 class="mb-3">Package Details</h2>
+  <div class="row">
+    <div class="col-md-4 d-flex" *ngFor="let pkg of filteredPackages">
+      <div class="card flex-fill h-100">
+        <img [src]="pkg.images" class="card-img-top" alt="package">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ pkg.name }}</h5>
+
+          <!-- Package Date -->
+          <p class="text-muted mb-1">
+            <i class="bi bi-calendar-event"></i> Date: {{ pkg.batches[0] }}
+          </p>
+
+          <!-- Conditional slot display -->
+          <p [ngClass]="{'text-danger fw-bold': pkg.slots < 5}">
+            Slots Left: {{ pkg.slots }}
+          </p>
+
+          <!-- Extra warning if less slots -->
+          <p *ngIf="pkg.slots < 5" class="text-danger small mt-n2">
+            ⚡ Few slots left, hurry up!
+          </p>
+
+          <p>Price: ₹{{ pkg.price }}</p>
+
+          <!-- Push button to bottom -->
+          <div class="mt-auto">
+            <button class="btn btn-primary w-100" [routerLink]="['/booking', pkg.id]">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

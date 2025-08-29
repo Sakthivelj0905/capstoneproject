@@ -1,0 +1,29 @@
+<app-admin-navbar></app-admin-navbar>
+<div>
+    <h2>Admin Dashboard</h2>
+</div>
+<div class="content">
+<div class="dashboard-container">
+  <div class="card" (click)="navigateTo('manage')">
+    <div class="card-content">
+      <img src="../../assets/package.png" alt="Packages">
+      <h3>Packages</h3>
+    </div>
+  </div>
+
+  <div class="card" (click)="navigateTo('reviews')">
+    <div class="card-content">
+      <img src="../../assets/review.png" alt="Reviews">
+      <h3>Reviews</h3>
+    </div>
+  </div>
+
+  <div class="card" (click)="navigateTo('bookings')">
+    <div class="card-content">
+      <img src="../../assets/bookinglist.png" alt="Booking List">
+      <h3>Booking List</h3>
+    </div>
+  </div>
+</div>
+</div>
+<app-footer></app-footer>
